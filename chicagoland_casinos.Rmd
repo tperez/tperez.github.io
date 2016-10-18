@@ -1,0 +1,21 @@
+---
+title: "Chicagoland Casinos"
+author: "Tom Perez"
+date: "10/17/2016"
+output: html_document
+---
+
+```{r}
+library(leaflet)
+casinos <- read.csv(textConnection("
+Casino,Lat,Long,Rating
+River Casino Des Plaines,41.9975080,-87.8642450,2.7
+Horshoe Hammond Casino,41.6941770,-87.5056740,3.0
+Blue Chip Casino Hotel Spa,41.7191990,-86.8919490,4.0
+"))
+leaflet(casinos) %>% 
+  addTiles() %>%
+  addCircles(lng = ~Long, lat = ~Lat, weight = 1,
+    radius = ~Rating * 25.0 * 100, popup = ~Casino
+  )
+```
